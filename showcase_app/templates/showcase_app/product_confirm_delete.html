@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  Архивировать товар #{{ product.pk }}
+{% endblock %}
+
+{% block body %}
+  <h1>Архивировать <code>{{ product.name }}</code></h1>
+  <div class="alert alert-danger">
+    Вы уверены, что хотите архивировать товар #{{ product.pk }}
+    с именем <code>{{ product.name }}</code>?
+  </div>
+
+  <form method="post">
+    {% csrf_token %}
+    <input class="btn btn-warning" type="submit" value="Archive">
+  </form>
+
+
+  <div>
+    <a class="btn btn-sm btn-info" href="{% url 'showcase_app:product' pk=product.pk %}">Назад к подробностям</a>
+  </div>
+{% endblock %}

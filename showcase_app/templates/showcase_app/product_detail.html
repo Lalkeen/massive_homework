@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  Товар #{{ product.pk }}
+{% endblock %}
+
+{% block body %}
+  <h1>О товаре №{{ product.pk }} </h1>
+  <h2><code>{{ product.name }}</code></h2>
+  <h3>Описание:</h3>
+  <p>{{ product.description }}</p>
+  <h3>Создан:</h3>
+  <p>{{ product.created_at }}</p>
+
+    {% if product.images %}
+        <h3>Фото:</h3>
+    <div class="my-3 d-flex justify-content-center">
+      <img align="left" src="{{ product.images.url }}" alt="connect"  style="max-height:300px;">
+{#        #"width: 100%; float: left; margin-right: 10px;">#}
+    </div>
+    {% endif %}
+
+    <h3>Обновлен:</h3>
+  <p>{{ product.updated_at }}</p>
+  <div>
+    {{ comment. }}
+    <a class="btn btn-success" href="{% url 'showcase_app:update-product' pk=product.pk %}">Обновить</a>
+    <a class="btn btn-warning" href="{% url 'showcase_app:delete-product' pk=product.pk %}">Архивировать</a>
+    <ul>
+      <li>
+        <a href="{% url 'showcase_app:index' %}">Назад к витрине</a>
+      </li>
+    </ul>
+  </div>
+{% endblock %}

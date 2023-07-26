@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  Изменить товар #{{ category.pk }}
+{% endblock %}
+
+{% block body %}
+  <h2>Изменить товар #{{ product.pk }} с именем <code>{{ product.name }}</code></h2>
+  <form class="my-3" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+
+    <input class="btn btn-primary" type="submit" value="Изменить">
+  </form>
+
+  <div>
+    <a class="btn btn-sm btn-info" href="{% url 'showcase_app:product' pk=product.pk %}">Назад к товару</a>
+  </div>
+{% endblock %}

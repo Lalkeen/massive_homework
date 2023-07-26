@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  Витрина
+{% endblock %}
+
+{% block body %}
+  <h1>Витрина:</h1>
+    <h3>Товар: Описание</h3>
+  <div>
+    <ul>
+      {% for product in product_list %}
+        <li><a class="text-decoration-none"
+               href="{% url 'showcase_app:product' pk=product.pk %}"
+        >{{ product.name }}</a>: {{ product.description }}
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+  <div>
+     <a href="{% url 'showcase_app:create-product' %}">Создать товар</a>
+  </div>
+{% endblock %}
