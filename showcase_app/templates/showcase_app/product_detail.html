@@ -22,6 +22,26 @@
 
     <h3>Обновлен:</h3>
   <p>{{ product.updated_at }}</p>
+
+    <h3>Вопросы о товаре:</h3>
+        {% for obj in question %}
+         <h4>{{obj.header}}</h4>
+            <h5>{{ obj.body }}</h5>
+            {{ obj.created_at }}
+          <h3>________</h3>
+        {% endfor %}
+      <form method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+            {{ form }}
+            <button class="btn btn-info" type="submit">Отправить! </button>
+        </div>
+      </form>
+
+
+
+
+  <p>{{ form.question }}</p>
   <div>
     {{ comment. }}
     <a class="btn btn-success" href="{% url 'showcase_app:update-product' pk=product.pk %}">Обновить</a>

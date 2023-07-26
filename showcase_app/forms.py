@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Product, Comment
+from .models import Product, Comment, Question
 
 
 # class CategoryForm(forms.Form):
@@ -28,7 +28,7 @@ class ProductForm(forms.ModelForm):
 class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
-        fields = "body",
+        fields = ("body",)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -41,3 +41,9 @@ class CommentForm(forms.ModelForm):
             if isinstance(field, forms.CharField):
                 print(field.label, type(field.label))
 
+
+class QuestionForm(forms.ModelForm):
+    class Meta:
+        model = Question
+        fields = "header", "body"
+        widgets = {"product": forms.HiddenInput()}
