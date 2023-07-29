@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Product, Comment, Question
+from .models import Product, Comment, Question, Answer
 
 
 # class CategoryForm(forms.Form):
@@ -47,3 +47,10 @@ class QuestionForm(forms.ModelForm):
         model = Question
         fields = "header", "body"
         widgets = {"product": forms.HiddenInput()}
+
+
+class AnswerForm(forms.ModelForm):
+    class Meta:
+        model = Answer
+        fields = ("body",)
+        widgets = {"question": forms.HiddenInput()}

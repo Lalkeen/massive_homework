@@ -12,11 +12,13 @@ import os
 
 from django.views.generic.edit import FormMixin
 
-from .models import Product, Question
-from .forms import ProductForm, QuestionForm
+from .models import Product, Question, Answer
+from .forms import ProductForm, QuestionForm, AnswerForm
 from massive_homework.settings import BASE_DIR
 
 # Create your views here.
+
+### PRODUCTS VIEWS ###
 
 
 class ProductListView(ListView):
@@ -66,3 +68,33 @@ class ProductUpdateView(UpdateView):
 class ProductDeleteView(DeleteView):
     success_url = reverse_lazy("showcase_app:index")
     queryset = Product.objects.filter(~Q(archived=True)).all()
+
+
+### QUESTION VIEWS ###
+
+
+class QuestionDetailView(FormMixin, DetailView):
+    model = Question
+    form_class = AnswerForm
+
+    def get_context_data(self, **kwargs):
+        answer = Answer.objects.filter(question_id=self.get_object()).order_by("id")
+        context = super(QuestionDetailView, self).get_context_data(**kwargs)
+        context["form"] = AnswerForm(initial={"question": self.object})
+        context["answer"] = answer
+        return context
+
+    def post(self, request, *args, **kwargs):
+        new_answer = Answer(
+            body=request.POST.get("body"),
+            question_id=self.get_object().id,
+        )
+        new_answer.save()
+        return self.get(self, request, *args, **kwargs)
+
+
+#
+# class QuestionDeleteView(DeleteView):
+#     product_id = question_id = Question.get_object().product_id
+#     success_url = reverse_lazy("showcase_app:product")
+#     queryset = Product.objects.filter(~Q(archived=True), product_id=product_id).all()

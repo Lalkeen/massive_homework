@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  Вопрос к Товару #{{ question.product_id }}
+{% endblock %}
+
+{% block body %}
+  <h1>Вопрос к Товару #{{ question.product_id }} </h1>
+  <h2><code>{{ question.header }}</code></h2>
+  <h3>Состав вопроса:</h3>
+  <p>{{ question.body }}</p>
+  <h3>Создан:</h3>
+  <p>{{ question.created_at }}</p>
+
+    <h3>Обновлен:</h3>
+  <p>{{ question.updated_at }}</p>
+
+    <h3>Ответы:</h3>
+    <h3>________</h3>
+        {% for obj in answer %}
+
+            <h5>{{ obj.body }}</h5>
+{#            {{ obj.created_at }}#}
+          <h3>________</h3>
+        {% endfor %}
+      <form method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+            {{ form }}
+            <button class="btn btn-info" type="submit">Отправить! </button>
+        </div>
+      </form>
+
+
+
+
+  <p>{{ form.question }}</p>
+  <div>
+{#    {{ comment. }}#}
+{#    <a class="btn btn-success" href="{% url 'showcase_app:update-product' pk=product.pk %}">Обновить</a>#}
+    <a class="btn btn-warning" href="{% url 'showcase_app:delete-question' pk=question.pk %}">Архивировать</a>
+    <ul>
+      <li>
+        <a href="{% url 'showcase_app:index' %}">Назад к витрине</a>
+      </li>
+    </ul>
+  </div>
+{% endblock %}
