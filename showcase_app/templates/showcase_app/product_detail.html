@@ -24,6 +24,9 @@
   <p>{{ product.updated_at }}</p>
 
     <h3>Вопросы о товаре:</h3>
+    <a class="text-decoration-none"
+               href="{% url 'showcase_app:question-list' pk=product.pk %}"
+        ><p>Все вопросы к товару</p></a>
     <h3>________</h3>
         {% for obj in question %}
 

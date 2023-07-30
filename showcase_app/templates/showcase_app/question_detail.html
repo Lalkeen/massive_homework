@@ -40,9 +40,13 @@
 {#    <a class="btn btn-success" href="{% url 'showcase_app:update-product' pk=product.pk %}">Обновить</a>#}
     <a class="btn btn-warning" href="{% url 'showcase_app:delete-question' pk=question.pk %}">Архивировать</a>
     <ul>
+        <li>
+          <a href="{% url 'showcase_app:product' pk=question.product_id %}">Назад к товару</a>
+      </li>
       <li>
         <a href="{% url 'showcase_app:index' %}">Назад к витрине</a>
       </li>
+
     </ul>
   </div>
 {% endblock %}

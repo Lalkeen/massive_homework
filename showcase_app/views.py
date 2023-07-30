@@ -38,9 +38,9 @@ class ProductDetailView(FormMixin, DetailView):
     form_class = QuestionForm
 
     def get_context_data(self, **kwargs):
-        question = Question.objects.filter(product_id=self.get_object()).order_by(
-            "created_at"
-        )
+        question = Question.objects.filter(
+            ~Q(archived=True), product_id=self.get_object()
+        ).order_by("created_at")
         context = super(ProductDetailView, self).get_context_data(**kwargs)
         context["form"] = QuestionForm(initial={"product": self.object})
         context["question"] = question
@@ -93,8 +93,14 @@ class QuestionDetailView(FormMixin, DetailView):
         return self.get(self, request, *args, **kwargs)
 
 
-#
-# class QuestionDeleteView(DeleteView):
-#     product_id = question_id = Question.get_object().product_id
-#     success_url = reverse_lazy("showcase_app:product")
-#     queryset = Product.objects.filter(~Q(archived=True), product_id=product_id).all()
+class QuestionDeleteView(DeleteView):
+    success_url = reverse_lazy("showcase_app:index")
+    queryset = Question.objects.filter(~Q(archived=True)).all()
+
+
+class QuestionListView(ListView):
+    model = Question
+
+    def get_queryset(self, **kwargs):
+        qs = super().get_queryset(**kwargs)
+        return qs.filter(product_id=self.kwargs["pk"])

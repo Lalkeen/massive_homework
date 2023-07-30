@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  Вопросы
+{% endblock %}
+
+{% block body %}
+  <h1>Вопросы:</h1>
+
+  <div>
+    <ul>
+      {% for obj in question_list %}
+
+            <a class="text-decoration-none"
+               href="{% url 'showcase_app:question' pk=obj.pk %}"
+        ><h4>{{ obj.header }}</h4></a>
+
+            <h5>{{ obj.body }}</h5>
+          <p> {{ obj.created_at }} </p>
+          <a href="{% url 'showcase_app:product' pk=obj.product_id %}">К товару</a>
+          <h3>________</h3>
+          {% empty %}
+          <h3>Пока пусто!</h3>
+        {% endfor %}
+     <li>
+        <a href="{% url 'showcase_app:index' %}">Назад к витрине</a>
+      </li>
+    </ul>
+  </div>
+
+{% endblock %}

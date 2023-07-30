@@ -14,6 +14,8 @@
                href="{% url 'showcase_app:product' pk=product.pk %}"
         >{{ product.name }}</a>: {{ product.description }}
         </li>
+          {% empty %}
+          <h3>Пока пусто!</h3>
       {% endfor %}
     </ul>
   </div>
