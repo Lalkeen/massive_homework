@@ -19,5 +19,5 @@ jobs:
         if [ -f requirements-dev.txt ]; then pip install -r requirements-dev.txt; fi
     - name: Test my django app
       run: |
-        test
+        python ./massive_homework/manage.py test
         
