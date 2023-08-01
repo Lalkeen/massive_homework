@@ -3,11 +3,6 @@ from django import forms
 from .models import Product, Comment, Question, Answer
 
 
-# class CategoryForm(forms.Form):
-#     name = forms.CharField(max_length=100)
-#     description = forms.TextInput()
-
-
 class ProductForm(forms.ModelForm):
     class Meta:
         model = Product

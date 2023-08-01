@@ -13,7 +13,6 @@ fake = Faker()
 
 
 class TestProductListTestCase(TestCase):
-    # def setUp(self) -> None:
 
     @classmethod
     def setUpClass(cls):
@@ -38,7 +37,5 @@ class ShowcaseIndexViewTestCase(TestCase):
     def test_index_view_status_ok(self):
         url = reverse("showcase_app:index")
         response = self.client.get(url)
-        # self.assertEqual(response.status_code, 200)
         self.assertEqual(response.status_code, HTTPStatus.OK)
-        # self.assertInHTML("<h1>Shop index</h1>", response, count=1)
         self.assertTemplateUsed(response, "showcase_app/product_list.html")
