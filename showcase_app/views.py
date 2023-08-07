@@ -104,3 +104,8 @@ class QuestionListView(ListView):
     def get_queryset(self, **kwargs):
         qs = super().get_queryset(**kwargs)
         return qs.filter(product_id=self.kwargs["pk"])
+
+
+class AnswerDeleteView(DeleteView):
+    success_url = reverse_lazy("showcase_app:index")
+    queryset = Answer.objects.filter(~Q(archived=True)).all()

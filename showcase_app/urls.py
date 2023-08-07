@@ -9,6 +9,7 @@ from .views import (
     QuestionDetailView,
     QuestionDeleteView,
     QuestionListView,
+    AnswerDeleteView,
 )
 
 
@@ -29,6 +30,11 @@ urlpatterns = [
         "question/<int:pk>/delete/",
         QuestionDeleteView.as_view(),
         name="delete-question",
+    ),
+    path(
+        "answer/<int:pk>/delete/",
+        AnswerDeleteView.as_view(),
+        name="delete-answer",
     ),
     path(
         "product/<int:pk>/questions", QuestionListView.as_view(), name="question-list"

@@ -13,7 +13,6 @@ fake = Faker()
 
 
 class TestProductListTestCase(TestCase):
-
     @classmethod
     def setUpClass(cls):
         cls.product = Product.objects.create(

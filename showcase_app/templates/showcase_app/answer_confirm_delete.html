@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  Архивировать ответ #{{ answer.pk }}
+{% endblock %}
+
+{% block body %}
+  <h1>Архивировать ответ?</h1>
+
+
+  <form method="post">
+    {% csrf_token %}
+    <input class="btn btn-warning" type="submit" value="Archive">
+  </form>
+
+
+  <div>
+    <a class="btn btn-sm btn-info" href="{% url 'showcase_app:question' pk=answer.question_id %}">Назад к вопросу</a>
+  </div>
+{% endblock %}
