@@ -24,8 +24,17 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("", TemplateView.as_view(template_name="index.html")),
     path("showcase/", include("showcase_app.urls")),
-    path("user/", include("user_app.urls")),
+    path(
+        "user/",
+        include("user_app.urls"),
+    ),
+    path(
+        "user/",
+        include("django.contrib.auth.urls"),
+    ),
+    path("__debug__/", include("debug_toolbar.urls")),
 ]
 
 if settings.DEBUG:
+    # urlpatterns += path("__debug__/", include("debug_toolbar.urls"))
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

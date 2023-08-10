@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import os
+from django.urls import reverse_lazy
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -29,20 +30,33 @@ SECRET_KEY = "django-insecure-fmsrmbn%1=qku0trx$xx+5_&u9sj0n#=x(-5yo(-2nx7l(l03x
 DEBUG = True
 
 ALLOWED_HOSTS = []
+INTERNAL_IPS = [
+    "127.0.0.1",
+    "0.0.0.0",
+]
 
 
 # Application definition
 
 INSTALLED_APPS = [
     "django.contrib.admin",
+    # "user_app.apps.UserAppConfig",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "debug_toolbar",
     "showcase_app.apps.ShowcaseAppConfig",
-    "user_app.apps.UserAppConfig",
+    "user_app",
+    # "user_app.apps.UserAppConfig",
 ]
+
+# if DEBUG:
+#     INSTALLED_APPS.extend(
+#         [
+#         ]
+#     )
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -52,6 +66,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 
 ROOT_URLCONF = "massive_homework.urls"
@@ -85,7 +100,10 @@ DATABASES = {
     }
 }
 
-
+LOGIN_REDIRECT_URL = "/user/dashboard"
+LOGIN_URL = reverse_lazy("login")
+# LOGOUT_URL = reverse_lazy("logout")
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
