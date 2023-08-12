@@ -25,7 +25,7 @@ urlpatterns = [
     path(
         "product/<int:pk>/delete/", ProductDeleteView.as_view(), name="delete-product"
     ),
-    path("question/<int:pk>", QuestionDetailView.as_view(), name="question"),
+    path("question/<int:pk>/", QuestionDetailView.as_view(), name="question"),
     path(
         "question/<int:pk>/delete/",
         QuestionDeleteView.as_view(),
@@ -37,6 +37,6 @@ urlpatterns = [
         name="delete-answer",
     ),
     path(
-        "product/<int:pk>/questions", QuestionListView.as_view(), name="question-list"
+        "product/<int:pk>/questions/", QuestionListView.as_view(), name="question-list"
     ),
 ]

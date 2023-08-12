@@ -94,8 +94,10 @@ class QuestionDetailView(FormMixin, DetailView):
 
 
 class QuestionDeleteView(DeleteView):
-    success_url = reverse_lazy("showcase_app:index")
     queryset = Question.objects.filter(~Q(archived=True)).all()
+
+    def get_success_url(self):
+        return reverse("showcase_app:product", kwargs={"pk": self.object.product.pk})
 
 
 class QuestionListView(ListView):
@@ -107,5 +109,7 @@ class QuestionListView(ListView):
 
 
 class AnswerDeleteView(DeleteView):
-    success_url = reverse_lazy("showcase_app:index")
     queryset = Answer.objects.filter(~Q(archived=True)).all()
+
+    def get_success_url(self):
+        return reverse("showcase_app:question", kwargs={"pk": self.object.question.pk})
