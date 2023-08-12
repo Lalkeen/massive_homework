@@ -58,6 +58,10 @@ def edit(request):
         if user_form.is_valid() and base_edit_form.is_valid():
             user_form.save()
             base_edit_form.save()
+            return render(
+                request,
+                "user_app/dashboard.html",
+            )
     else:
         user_form = UserEditForm(instance=request.user)
         base_edit_form = BaseUserEditForm(instance=request.user.baseuser)
