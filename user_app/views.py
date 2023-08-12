@@ -1,8 +1,10 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
+from django.views.generic import DetailView
 
 from .forms import UserRegistrationForm, LoginForm, UserEditForm, BaseUserEditForm
 from .models import BaseUser
@@ -11,6 +13,16 @@ from .models import BaseUser
 @login_required
 def dashboard(request):
     return render(request, "user_app/dashboard.html", {"section": "dashboard"})
+
+
+# @login_required
+class UserDetailView(DetailView):
+    model = User
+
+
+# def userprofile(request, pk):
+#     user = BaseUser.get(pk=pk)
+#     return render(request, "user_app/profile.html", {"user": user})
 
 
 def user_login(request):

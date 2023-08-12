@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block body %}
-  <h1>Вопрос к товару #{{ question.product_id }}, от пользователя {{ question.user.username }} </h1>
+  <h1>Вопрос к товару #{{ question.product_id }}, от пользователя <a href="{% url "user_app:userprofile" pk=question.user.pk %}">{{ question.user.username }}</a> </h1>
   <h2><code>{{ question.header }}</code></h2>
   <h3>Состав вопроса:</h3>
   <p>{{ question.body }}</p>
@@ -20,7 +20,7 @@
         {% for obj in answer %}
 
             <h5>{{ obj.body }}</h5>
-            <p>{{ obj.user.username }}</p>
+            <p>Ответ пользователя: <a href="{% url "user_app:userprofile" pk=obj.user.pk %}">{{ obj.user.username }}</a></p>
             <a class="btn btn-warning" href="{% url 'showcase_app:delete-answer' pk=obj.pk %}">Архивировать</a>
 {#            {{ obj.created_at }}#}
           <h3>________</h3>

@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}User{% endblock %}
+
+{% block body %}
+{#    <h1>Dashboard</h1>#}
+{#    <p>Welcome to your dashboard. You can <a href="{% url "user_app:edit" %}">edit your profile</a> or <a href="{% url "password_change" %}">change your password</a>.</p></p>#}
+    <h2>Username: {{ user }}</h2>
+    <h2>bio:</h2>
+    {% if user.baseuser.bio %}
+    {{ user.baseuser.bio }}
+    {% else %}
+        нет био :с
+    {% endif %}
+    <p>{{ user.baseuser.name }}</p>
+    <h2>фото:</h2>
+    {% if user.baseuser.prof_pic %}
+    <div class="my-3 d-flex justify-content-left">
+      <img src="{{ user.baseuser.prof_pic.url }}" alt="connect"  style="max-height:300px;">
+{#        #"width: 100%; float: left; margin-right: 10px;">#}
+    </div>
+    {% else %}
+        нет фото :с
+    {% endif %}
+{#    <h1>Выход</h1>#}
+{#    <p>Для того чтобы выйти, нажми <a href="{% url "logout" %}">выйти</a>.</p>#}
+{% endblock %}

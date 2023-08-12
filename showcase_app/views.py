@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse, reverse_lazy
-from django.db.models import Q
+from django.db.models import Q, Count
 from django.views.generic import (
     ListView,
     CreateView,
@@ -46,9 +46,11 @@ class ProductDetailView(FormMixin, DetailView):
     form_class = QuestionForm
 
     def get_context_data(self, **kwargs):
-        question = Question.objects.filter(
-            ~Q(archived=True), product_id=self.get_object()
-        ).order_by("created_at")
+        question = (
+            Question.objects.annotate(number_of_answers=Count("answer"))
+            .filter(~Q(archived=True), product_id=self.get_object())
+            .order_by("created_at")
+        )
         context = super(ProductDetailView, self).get_context_data(**kwargs)
         context["form"] = QuestionForm(
             initial={"user_id": self.request.user.pk, "product": self.object}
