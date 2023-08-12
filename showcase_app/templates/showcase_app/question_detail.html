@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block body %}
-  <h1>Вопрос к Товару #{{ question.product_id }} </h1>
+  <h1>Вопрос к товару #{{ question.product_id }}, от пользователя {{ question.user.username }} </h1>
   <h2><code>{{ question.header }}</code></h2>
   <h3>Состав вопроса:</h3>
   <p>{{ question.body }}</p>
@@ -20,15 +20,26 @@
         {% for obj in answer %}
 
             <h5>{{ obj.body }}</h5>
+            <p>{{ obj.user.username }}</p>
             <a class="btn btn-warning" href="{% url 'showcase_app:delete-answer' pk=obj.pk %}">Архивировать</a>
 {#            {{ obj.created_at }}#}
           <h3>________</h3>
         {% endfor %}
       <form method="POST">
         {% csrf_token %}
+
+        {% if user.is_authenticated %}
         <div class="form-group">
             {{ form }}
+{#            <input name="user" value="{{ user }}" type="hidden">#}
             <button class="btn btn-info" type="submit">Отправить! </button>
+            {% else %}
+      <a
+        class="btn btn-outline-primary"
+        href="{% url 'login' %}">
+        Login
+      </a>
+    {% endif %}
         </div>
       </form>
 

@@ -1,3 +1,5 @@
+from django.conf import settings
+from django.contrib.auth.decorators import login_required
 from django.urls import reverse, reverse_lazy
 from django.db.models import Q
 from django.views.generic import (
@@ -28,6 +30,12 @@ class ProductListView(ListView):
 class ProductCreateView(CreateView):
     model = Product
     form_class = ProductForm
+    exclude = ["user"]
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+
     success_url = reverse_lazy("showcase_app:index")
 
 
@@ -42,12 +50,15 @@ class ProductDetailView(FormMixin, DetailView):
             ~Q(archived=True), product_id=self.get_object()
         ).order_by("created_at")
         context = super(ProductDetailView, self).get_context_data(**kwargs)
-        context["form"] = QuestionForm(initial={"product": self.object})
+        context["form"] = QuestionForm(
+            initial={"user_id": self.request.user.pk, "product": self.object}
+        )
         context["question"] = question
         return context
 
     def post(self, request, *args, **kwargs):
         new_question = Question(
+            user=request.user,
             header=request.POST.get("header"),
             body=request.POST.get("body"),
             product_id=self.get_object(),
@@ -80,12 +91,16 @@ class QuestionDetailView(FormMixin, DetailView):
     def get_context_data(self, **kwargs):
         answer = Answer.objects.filter(question_id=self.get_object()).order_by("id")
         context = super(QuestionDetailView, self).get_context_data(**kwargs)
-        context["form"] = AnswerForm(initial={"question": self.object})
+        context["form"] = AnswerForm(
+            initial={"user_id": self.request.user.pk, "question": self.object}
+        )
         context["answer"] = answer
         return context
 
+    # @login_required
     def post(self, request, *args, **kwargs):
         new_answer = Answer(
+            user=request.user,
             body=request.POST.get("body"),
             question_id=self.get_object().id,
         )

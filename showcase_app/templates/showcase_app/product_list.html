@@ -12,14 +12,22 @@
       {% for product in product_list %}
         <li><a class="text-decoration-none"
                href="{% url 'showcase_app:product' pk=product.pk %}"
-        >{{ product.name }}</a>: {{ product.description }}
+        >{{ product.name }}</a>: {{ product.description }}, автор: {{ product.user.username }}
         </li>
           {% empty %}
           <h3>Пока пусто!</h3>
       {% endfor %}
     </ul>
   </div>
+    {% if user.is_authenticated %}
   <div>
      <a href="{% url 'showcase_app:create-product' %}">Создать товар</a>
   </div>
+    {% else %}
+      <a
+        class="btn btn-outline-primary"
+        href="{% url 'login' %}">
+        Login
+      </a>
+    {% endif %}
 {% endblock %}

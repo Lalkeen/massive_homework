@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block body %}
-  <h1>О товаре №{{ product.pk }} </h1>
+  <h1>О товаре №{{ product.pk }}, создан пользователем {{ product.user.username }} </h1>
   <h2><code>{{ product.name }}</code></h2>
   <h3>Описание:</h3>
   <p>{{ product.description }}</p>
@@ -33,9 +33,8 @@
             <a class="text-decoration-none"
                href="{% url 'showcase_app:question' pk=obj.pk %}"
         ><h4>{{ obj.header }}</h4></a>
-
-
             <h5>{{ obj.body }}</h5>
+            {{ obj.user.username }},
             {{ obj.created_at }}
           <h3>________</h3>
         {% endfor %}
