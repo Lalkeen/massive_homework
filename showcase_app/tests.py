@@ -18,6 +18,7 @@ class TestProductListTestCase(TestCase):
         cls.product = Product.objects.create(
             name=fake.user_name(),
             description=fake.bs(),
+            user_id=1,
         )
 
     @classmethod
