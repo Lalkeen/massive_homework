@@ -2,39 +2,18 @@
 
 {% extends "base.html" %}
 {% block title %}Login{% endblock %}
-{#{% block body %}#}
-{#    <h1>Login</h1>#}
-{#    {% if form.errors %}#}
-{#        <p>#}
-{#            Your username and password didn't match.#}
-{#            Please try again.#}
-{#        </p>#}
-{#    {% else %}#}
-{#        <p>Please, use the following form to login:</p>#}
-{#    {% endif %}#}
-{#    <div class="login-form">#}
-{#        <form action="{% url 'login' %}" method="post">#}
-{#            {{ form.as_p }}#}
-{#            {% csrf_token %}#}
-{#            <input type="hidden" name="next" value="{{ next }}"/>#}
-{#            <p><input type="submit" value="Login"></p>#}
-{#        </form>#}
-{#    <p><a href="{% url "password_reset" %}">Forgotten your password?</a></p>#}
-{#    </div>#}
-{#{% endblock %}#}
 
 {% block body %}
 
   {% if form.errors %}
-    <p>Your username and password didn't match. Please try again.</p>
+    <p>Пара Юзернейм-Пароль не совпадают, пожалуйста, повторите.</p>
   {% endif %}
 
   {% if next %}
     {% if user.is_authenticated %}
-      <p>Your account doesn't have access to this page. To proceed,
-      please login with an account that has access.</p>
+      <p>У вас нет доступа к этой странице. Чтобы продолжить, войдите в соответствующий профиль.</p>
     {% else %}
-      <p>Please login to see this page.</p>
+      <p>Пожалуйста, войдите, чтобы продолжить.</p>
     {% endif %}
   {% endif %}
 
@@ -55,7 +34,7 @@
   </form>
 
   {# Assumes you setup the password_reset view in your URLconf #}
-  <p><a href="{% url 'password_reset' %}">Lost password?</a></p>
+  <p><a href="{% url 'password_reset' %}">Забыли пароль?</a></p>
   <p><a href="{% url 'user_app:register' %}">Регистрация</a></p>
 
 {% endblock %}
