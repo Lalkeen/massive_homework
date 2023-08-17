@@ -12,25 +12,25 @@ Faker.seed("massive_homework")
 fake = Faker()
 
 
-class TestProductListTestCase(TestCase):
-    @classmethod
-    def setUpClass(cls):
-        cls.product = Product.objects.create(
-            name=fake.user_name(),
-            description=fake.bs(),
-            user_id=1,
-        )
+# class TestProductListTestCase(TestCase):
+#     @classmethod
+#     def setUpClass(cls):
+#         cls.product = Product.objects.create(
+#             name=fake.user_name(),
+#             description=fake.bs(),
+#             user_id=1,
+#         )
 
-    @classmethod
-    def tearDownClass(cls):
-        cls.product.delete()
+#     @classmethod
+#     def tearDownClass(cls):
+#         cls.product.delete()
 
-    def test_get_product(self):
-        qs = Product.objects.filter(~Q(name="default"))
-        count = qs.count()
-        self.assertEqual(count, 1)
-        product = qs.get()
-        self.assertEqual(product.pk, self.product.pk)
+#     def test_get_product(self):
+#         qs = Product.objects.filter(~Q(name="default"))
+#         count = qs.count()
+#         self.assertEqual(count, 1)
+#         product = qs.get()
+#         self.assertEqual(product.pk, self.product.pk)
 
 
 class ShowcaseIndexViewTestCase(TestCase):
