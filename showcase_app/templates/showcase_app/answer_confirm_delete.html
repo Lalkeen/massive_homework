@@ -5,6 +5,8 @@
 {% endblock %}
 
 {% block body %}
+     {% if request.user.pk in answer.user.pk or request.user.baseuser.moder or request.user.is_staff %}
+
   <h1>Архивировать ответ?</h1>
 
 
@@ -13,6 +15,9 @@
     <input class="btn btn-warning" type="submit" value="Archive">
   </form>
 
+    {% else %}
+    <h1>Вам сюда нельзя</h1>
+    {% endif %}
 
   <div>
     <a class="btn btn-sm btn-info" href="{% url 'showcase_app:question' pk=answer.question_id %}">Назад к вопросу</a>

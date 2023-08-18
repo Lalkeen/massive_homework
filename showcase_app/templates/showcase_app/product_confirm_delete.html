@@ -5,7 +5,8 @@
 {% endblock %}
 
 {% block body %}
-  <h1>Архивировать <code>{{ product.name }}</code></h1>
+     {% if request.user.pk in product.user.pk or request.user.baseuser.moder or request.user.is_staff %}
+      <h1>Архивировать <code>{{ product.name }}</code></h1>
   <div class="alert alert-danger">
     Вы уверены, что хотите архивировать товар #{{ product.pk }}
     с именем <code>{{ product.name }}</code>?
@@ -15,6 +16,9 @@
     {% csrf_token %}
     <input class="btn btn-warning" type="submit" value="Archive">
   </form>
+    {% else %}
+    <h1>Вам сюда нельзя</h1>
+    {% endif %}
 
 
   <div>

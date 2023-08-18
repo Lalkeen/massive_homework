@@ -3,12 +3,17 @@
 {% block title %}Редактор профиля{% endblock %}
 
 {% block body %}
+     {% if request.user.baseuser.moder or request.user.is_staff %}
     <h1>Редактирование информации пользователя {{ user.username }}</h1>
     <p>Используя форму ниже, вы можете изменить информацию пользователя:</p>
+
     <form action="." method="post" enctype="multipart/form-data">
         {{ user_form.as_p }}
         {{ base_user_form.as_p }}
         {% csrf_token %}
         <p><input type="submit" value="Save changes"></p>
     </form>
+    {% else %}
+    <h1>Вам сюда нельзя</h1>
+    {% endif %}
 {% endblock %}
