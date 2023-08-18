@@ -9,6 +9,7 @@ class BaseUser(models.Model):
 
     bio = models.TextField(blank=True, null=True)
     prof_pic = models.ImageField(upload_to="images/%Y/%m/%d", blank=True, null=True)
+    moder = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     archived = models.BooleanField(default=False)

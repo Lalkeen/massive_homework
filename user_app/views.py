@@ -82,3 +82,34 @@ def edit(request):
             "user_app/edit.html",
             {"user_form": user_form, "base_user_form": base_edit_form},
         )
+
+
+def edit_user(request, pk, **kwargs):
+    if request.method == "POST":
+        user_data = User.objects.get(pk=pk)
+        user_form = UserEditForm(instance=user_data, data=request.POST)
+        base_edit_form = BaseUserEditForm(
+            instance=BaseUser.objects.get(user_id=user_data.pk),
+            data=request.POST,
+            files=request.FILES,
+        )
+        if user_form.is_valid() and base_edit_form.is_valid():
+            user_form.save()
+            base_edit_form.save()
+            return render(
+                request,
+                "user_app/dashboard.html",
+            )
+    else:
+        user_data = User.objects.get(pk=pk)
+        user_form = UserEditForm(instance=user_data)
+        base_edit_form = BaseUserEditForm(instance=user_data.baseuser)
+        return render(
+            request,
+            "user_app/edit_user.html",
+            {
+                "user_form": user_form,
+                "base_user_form": base_edit_form,
+                "user": user_data,
+            },
+        )

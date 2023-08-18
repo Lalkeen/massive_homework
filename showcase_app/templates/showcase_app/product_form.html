@@ -5,11 +5,21 @@
 {% endblock %}
 
 {% block body %}
+
   <h2>Создать товар</h2>
+    {% if user.is_authenticated %}
   <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.as_p }}
 
     <input class="btn btn-primary" type="submit" value="Создать">
   </form>
+    {% else %}
+    <h3>Вы не можете создать товар, пока не вошли в свой аккаунт</h3>
+    <a
+        class="btn btn-outline-primary"
+        href="{% url 'login' %}">
+        Login
+      </a>
+    {% endif %}
 {% endblock %}

@@ -40,23 +40,21 @@ INTERNAL_IPS = [
 
 INSTALLED_APPS = [
     "django.contrib.admin",
-    # "user_app.apps.UserAppConfig",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "debug_toolbar",
     "showcase_app.apps.ShowcaseAppConfig",
     "user_app",
-    # "user_app.apps.UserAppConfig",
 ]
 
-# if DEBUG:
-#     INSTALLED_APPS.extend(
-#         [
-#         ]
-#     )
+if DEBUG:
+    INSTALLED_APPS.extend(
+        [
+            "debug_toolbar",
+        ]
+    )
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",

@@ -15,8 +15,7 @@
     {% if product.images %}
         <h3>Фото:</h3>
     <div class="my-3 d-flex justify-content-left">
-      <img align="left" src="{{ product.images.url }}" alt="connect"  style="max-height:300px;">
-{#        #"width: 100%; float: left; margin-right: 10px;">#}
+      <img src="{{ product.images.url }}" alt="connect"  style="max-height:300px;">
     </div>
     {% endif %}
 
@@ -51,13 +50,17 @@
 
 
   <p>{{ form.question }}</p>
+
   <div>
+       {% if request.user.pk in product.user.pk or request.user.baseuser.moder or request.user.is_staff %}
     <a class="btn btn-success" href="{% url 'showcase_app:update-product' pk=product.pk %}">Редактировать</a>
     <a class="btn btn-warning" href="{% url 'showcase_app:delete-product' pk=product.pk %}">Архивировать</a>
+      {% endif %}
     <ul>
       <li>
         <a href="{% url 'showcase_app:index' %}">Назад к витрине</a>
       </li>
     </ul>
   </div>
+
 {% endblock %}

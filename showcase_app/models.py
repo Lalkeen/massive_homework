@@ -6,7 +6,7 @@ from django.conf import settings
 
 
 class Product(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT)
     name = models.CharField(max_length=100)
     description = models.TextField()
     images = models.ImageField(upload_to="images/%Y/%m/%d", blank=True, null=True)

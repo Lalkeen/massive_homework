@@ -21,8 +21,10 @@
 
             <h5>{{ obj.body }}</h5>
             <p>Ответ пользователя: <a href="{% url "user_app:userprofile" pk=obj.user.pk %}">{{ obj.user.username }}</a></p>
+              {% if request.user.pk in product.user.pk or request.user.baseuser.moder or request.user.is_staff %}
             <a class="btn btn-warning" href="{% url 'showcase_app:delete-answer' pk=obj.pk %}">Архивировать</a>
-{#            {{ obj.created_at }}#}
+              {% enif %}
+            {{ obj.created_at }}
           <h3>________</h3>
         {% endfor %}
       <form method="POST">
@@ -31,7 +33,6 @@
         {% if user.is_authenticated %}
         <div class="form-group">
             {{ form }}
-{#            <input name="user" value="{{ user }}" type="hidden">#}
             <button class="btn btn-info" type="submit">Отправить! </button>
             {% else %}
       <a
@@ -48,10 +49,10 @@
 
   <p>{{ form.question }}</p>
   <div>
-{#    {{ comment. }}#}
-{#    <a class="btn btn-success" href="{% url 'showcase_app:update-product' pk=product.pk %}">Обновить</a>#}
-    <a class="btn btn-warning" href="{% url 'showcase_app:delete-question' pk=question.pk %}">Архивировать</a>
-    <ul>
+    {% if request.user.pk in product.user.pk or request.user.baseuser.moder or request.user.is_staff %}
+      <a class="btn btn-warning" href="{% url 'showcase_app:delete-question' pk=question.pk %}">Архивировать</a>
+    {% endif %}
+      <ul>
         <li>
           <a href="{% url 'showcase_app:product' pk=question.product_id %}">Назад к товару</a>
       </li>
