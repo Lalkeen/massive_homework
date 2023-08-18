@@ -20,11 +20,6 @@ class UserDetailView(DetailView):
     model = User
 
 
-# def userprofile(request, pk):
-#     user = BaseUser.get(pk=pk)
-#     return render(request, "user_app/profile.html", {"user": user})
-
-
 def user_login(request):
     if request.method == "POST":
         form = LoginForm(request.POST)
@@ -96,9 +91,11 @@ def edit_user(request, pk, **kwargs):
         if user_form.is_valid() and base_edit_form.is_valid():
             user_form.save()
             base_edit_form.save()
-            return render(
-                request,
-                "user_app/dashboard.html",
+            return HttpResponseRedirect(
+                reverse(
+                    "user_app:userprofile",
+                    kwargs={"pk": user_data.pk},
+                )  # pk=user_data.pk)
             )
     else:
         user_data = User.objects.get(pk=pk)

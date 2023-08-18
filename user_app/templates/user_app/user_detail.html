@@ -8,7 +8,7 @@
     <p>Это личный кабинет пользователя {{ user.username }}. Вы можете <a href="{% url "user_app:edit-user" pk=user.pk %}">отредактировать его профиль</a>.</p>
     {% endif %}
     <h2>Юзернейм: {{ user }}</h2>
-    <h2>о себе:</h2>
+    <h2>О себе:</h2>
     {% if user.baseuser.bio %}
     {{ user.baseuser.bio }}
     {% else %}
