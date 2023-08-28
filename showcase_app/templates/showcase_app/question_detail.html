@@ -23,7 +23,7 @@
             <p>Ответ пользователя: <a href="{% url "user_app:userprofile" pk=obj.user.pk %}">{{ obj.user.username }}</a></p>
               {% if request.user.pk in product.user.pk or request.user.baseuser.moder or request.user.is_staff %}
             <a class="btn btn-warning" href="{% url 'showcase_app:delete-answer' pk=obj.pk %}">Архивировать</a>
-              {% enif %}
+              {% endif %}
             {{ obj.created_at }}
           <h3>________</h3>
         {% endfor %}
@@ -49,7 +49,7 @@
 
   <p>{{ form.question }}</p>
   <div>
-    {% if request.user.pk in question.user.pk or request.user.baseuser.moder or request.user.is_staff %}
+    {% if request.user.pk == question.user.pk or request.user.baseuser.moder or request.user.is_staff %}
       <a class="btn btn-warning" href="{% url 'showcase_app:delete-question' pk=question.pk %}">Архивировать</a>
     {% endif %}
       <ul>

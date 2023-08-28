@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block body %}
-     {% if request.user.pk in answer.user.pk or request.user.baseuser.moder or request.user.is_staff %}
+     {% if request.user.pk == answer.user.pk or request.user.baseuser.moder or request.user.is_staff %}
 
   <h1>Архивировать ответ?</h1>
 
